@@ -1,0 +1,39 @@
+{
+  "name": "egg-plugin-puml",
+  "version": "1.0.0",
+  "description": "Create plugin puml",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "mkdirp": "^0.5.1"
+  },
+  "devDependencies": {
+    "autod": "*",
+    "coffee": "3",
+    "egg": "1",
+    "egg-bin": "1",
+    "eslint": "3",
+    "eslint-config-egg": "3",
+    "rimraf": "2"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "bin": {
+    "puml": "index.js"
+  },
+  "scripts": {
+    "lint": "eslint test *.js",
+    "test": "egg-bin test",
+    "cov": "egg-bin cov",
+    "ci": "npm run lint && egg-bin cov"
+  },
+  "homepage": "https://github.com/eggjs/egg-plugin-puml",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eggjs/egg-plugin-puml.git"
+  },
+  "engines": {
+    "node": ">= 4.2.3"
+  }
+}
