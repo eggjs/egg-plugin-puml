@@ -9,8 +9,9 @@
   "devDependencies": {
     "autod": "*",
     "coffee": "3",
-    "egg": "1",
+    "egg": "*",
     "egg-bin": "1",
+    "egg-ci": "^1.5.0",
     "eslint": "3",
     "eslint-config-egg": "3",
     "rimraf": "2"
@@ -34,6 +35,11 @@
     "url": "https://github.com/eggjs/egg-plugin-puml.git"
   },
   "engines": {
-    "node": ">= 4.2.3"
-  }
+    "node": ">= 6.0.0"
+  },
+  "ci": {
+    "version": "6, 7",
+    "license": true
+  },
+  "license": "MIT"
 }

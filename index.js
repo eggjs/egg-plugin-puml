@@ -27,6 +27,8 @@ const AppWorkerLoader = require(baseDir).AppWorkerLoader;
 const loader = new AppWorkerLoader({
   baseDir,
   customEgg: baseDir,
+  app: {},
+  logger: console,
 });
 loader.loadPlugin();
 
@@ -35,9 +37,12 @@ const deps = [];
 const puml = [];
 for (const name in loader.allPlugins) {
   const plugin = loader.allPlugins[name];
-  if (plugin.dep.length) {
+  if (plugin.dependencies.length || plugin.optionalDependencies.length) {
     deps.push(name);
-    for (const n of plugin.dep) {
+    for (const n of plugin.dependencies) {
+      puml.push(`"${name}" -> "${n}";`);
+    }
+    for (const n of plugin.optionalDependencies) {
       puml.push(`"${name}" -> "${n}";`);
     }
   } else {

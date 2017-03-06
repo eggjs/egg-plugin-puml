@@ -5,19 +5,16 @@ digraph world {
   "userservice";
   "userrole";
   "session";
-  "locals";
-  "view" -> "security";
-  "view" -> "locals";
-  "view" -> "watcher";
-  "i18n" -> "locals";
-  "validate" -> "i18n";
+  "i18n";
+  "validate";
   "watcher";
   "multipart";
-  "security";
+  "security" -> "session";
   "development" -> "watcher";
-  "rest";
+  "logrotator" -> "schedule";
+  "schedule";
   "static";
-  "cors" -> "security";
-  "logrotater";
+  "jsonp" -> "security";
+  "view";
 }
 @enduml
