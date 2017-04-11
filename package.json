@@ -1,6 +1,6 @@
 {
   "name": "egg-plugin-puml",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Create plugin puml",
   "dependencies": {
     "commander": "^2.9.0",
