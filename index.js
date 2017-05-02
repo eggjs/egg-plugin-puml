@@ -30,53 +30,22 @@ destDir = path.resolve(destDir);
 
 const def = [];
 const deps = [];
-const single = [];
-const depCont = new Map();
 for (const name in plugins) {
-  let i = depCont.get(name);
-  if (i === undefined) {
-    i = 0;
-  }
-  depCont.set(name, i);
   const plugin = plugins[name];
   def.push(`${name} ${plugin.enable ? '' : '[color=gray]'}`);
   if (plugin.dependencies.length || plugin.optionalDependencies.length) {
-    let i = depCont.get(name);
-    i++;
-    depCont.set(name, i);
     for (const n of plugin.dependencies) {
       deps.push(`${name} -> ${n}`);
-      let i = depCont.get(n);
-      if (i === undefined) {
-        i = 0;
-      }
-      i++;
-      depCont.set(n, i);
     }
     for (const n of plugin.optionalDependencies) {
       deps.push(`${name} -> ${n} [style=dotted]`);
-      let i = depCont.get(n);
-      if (i === undefined) {
-        i = 0;
-      }
-      i++;
-      depCont.set(n, i);
     }
   }
 }
-console.log(depCont)
-const group = [];
-for (const [ name, count ] of depCont.entries()) {
-  if (!group[count]) group[count] = new Set();
-  group[count].add(name);
-}
-console.log(group);
 
 const content = `
 @startuml
 digraph plugins {
-${group.map(s => '{rank=same; ' + [ ...s ].join(' ') + ';}').join('\n')}
-
 ${def.join('\n')}
 ${deps.join('\n')}
 }
