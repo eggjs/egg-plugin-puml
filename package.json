@@ -9,7 +9,6 @@
   "devDependencies": {
     "autod": "*",
     "coffee": "3",
-    "egg": "*",
     "egg-bin": "1",
     "egg-ci": "^1.5.0",
     "eslint": "3",
