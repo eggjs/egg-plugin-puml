@@ -3,26 +3,30 @@
   "version": "2.0.0",
   "description": "Create plugin puml",
   "dependencies": {
-    "commander": "^2.9.0",
+    "common-bin": "^2.3.0",
+    "egg-core": "^3.6.0",
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
-    "autod": "*",
-    "coffee": "3",
-    "egg-bin": "1",
+    "autod": "^2.8.0",
+    "coffee": "^3.3.0",
+    "egg-bin": "^3.3.2",
     "egg-ci": "^1.5.0",
-    "eslint": "3",
-    "eslint-config-egg": "3",
-    "rimraf": "2"
+    "eslint": "^3.19.0",
+    "eslint-config-egg": "^3.2.0",
+    "rimraf": "^2.6.1"
   },
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "lib",
+    "cli.js"
   ],
   "bin": {
-    "puml": "index.js"
+    "puml": "cli.js"
   },
   "scripts": {
+    "autod": "autod",
     "lint": "eslint test *.js",
     "test": "egg-bin test",
     "cov": "egg-bin cov",
