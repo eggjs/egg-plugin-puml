@@ -1,6 +1,6 @@
 @startuml
 digraph plugins {
-  onerror
+  onerror [color=gray]
   session
   i18n
   watcher

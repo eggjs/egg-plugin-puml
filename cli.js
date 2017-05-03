@@ -2,7 +2,7 @@
 
 'use strict';
 
-const Command = require('common-bin').Command;
+const Command = require('common-bin');
 const puml = require('./index');
 
 class PumlCommand extends Command {
@@ -23,12 +23,14 @@ class PumlCommand extends Command {
   }
 
   * run({ argv }) {
+    const baseDir = argv._[0] || process.cwd();
     puml({
-      baseDir: argv._[0],
-      framework: argv.framework,
+      baseDir,
+      framework: argv.framework || baseDir,
       dest: argv.dest,
     });
   }
 }
 
-new PumlCommand().start();
+const c = new PumlCommand();
+c.start();

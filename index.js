@@ -32,7 +32,7 @@ module.exports = options => {
   const deps = [];
   for (const name in plugins) {
     const plugin = plugins[name];
-    def.push(`${name} ${plugin.enable ? '' : '[color=gray]'}`);
+    def.push(`${name}${plugin.enable ? '' : ' [color=gray]'}`);
     if (plugin.dependencies.length || plugin.optionalDependencies.length) {
       for (const n of plugin.dependencies) {
         deps.push(`${name} -> ${n}`);
@@ -44,12 +44,12 @@ module.exports = options => {
   }
 
   let content = '';
-  content += '@startuml';
-  content += 'digraph plugins {';
-  content += def.join('\n');
-  content += deps.join('\n');
-  content += '}';
-  content += '@enduml';
+  content += '@startuml\n';
+  content += 'digraph plugins {\n';
+  content += def.map(d => '  ' + d).join('\n') + '\n';
+  content += deps.map(d => '  ' + d).join('\n') + '\n';
+  content += '}\n';
+  content += '@enduml\n';
 
   const pumlPath = path.join(dest, 'plugins.puml');
   mkdirp.sync(dest);

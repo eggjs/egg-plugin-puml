@@ -7,6 +7,7 @@ module.exports = {
   exclude: [
   ],
   devdep: [
+    'egg',
     'autod',
     'eslint',
     'eslint-config-egg',
@@ -15,5 +16,8 @@ module.exports = {
   keep: [
   ],
   semver: [
+  ],
+  ignore: [
+    'egg',
   ],
 };

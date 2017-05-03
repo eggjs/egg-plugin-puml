@@ -4,12 +4,12 @@
   "description": "Create plugin puml",
   "dependencies": {
     "common-bin": "^2.3.0",
-    "egg-core": "^3.6.0",
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
     "autod": "^2.8.0",
     "coffee": "^3.3.0",
+    "egg": "^1.2.0",
     "egg-bin": "^3.3.2",
     "egg-ci": "^1.5.0",
     "eslint": "^3.19.0",
