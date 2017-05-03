@@ -1,65 +1,57 @@
-#!/usr/bin/env node
-
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
-const program = require('commander');
+const assert = require('assert');
+const getPlugin = require('./lib/plugin');
 
-program
-  .version(require('./package.json'))
-  .usage('[baseDir]')
-  .option('--dest [dest]', 'Directory that the file writing to');
+const defaults = {
+  baseDir: process.cwd(),
+  framework: '',
+  dest: '',
+};
 
-program.parse(process.argv);
+module.exports = options => {
+  options = Object.assign({}, defaults, options);
+  assert(options.framework);
 
-// hide loader tips
-console.warn = () => {};
+  const baseDir = path.resolve(options.baseDir);
+  const framework = path.resolve(options.framework);
 
-let baseDir = program.args[0] || process.cwd();
-baseDir = path.resolve(baseDir);
+  let dest = options.dest || baseDir;
+  dest = path.resolve(dest);
 
-let destDir = program.dest || baseDir;
-destDir = path.resolve(destDir);
+  const plugins = getPlugin({
+    baseDir,
+    framework,
+  });
 
-const AppWorkerLoader = require(baseDir).AppWorkerLoader;
-const loader = new AppWorkerLoader({
-  baseDir,
-  customEgg: baseDir,
-  app: {},
-  logger: console,
-});
-loader.loadPlugin();
-
-const single = [];
-const deps = [];
-const puml = [];
-for (const name in loader.allPlugins) {
-  const plugin = loader.allPlugins[name];
-  if (plugin.dependencies.length || plugin.optionalDependencies.length) {
-    deps.push(name);
-    for (const n of plugin.dependencies) {
-      puml.push(`"${name}" -> "${n}";`);
+  const def = [];
+  const deps = [];
+  for (const name in plugins) {
+    const plugin = plugins[name];
+    def.push(`${name}${plugin.enable ? '' : ' [color=gray]'}`);
+    if (plugin.dependencies.length || plugin.optionalDependencies.length) {
+      for (const n of plugin.dependencies) {
+        deps.push(`${name} -> ${n}`);
+      }
+      for (const n of plugin.optionalDependencies) {
+        deps.push(`${name} -> ${n} [style=dotted]`);
+      }
     }
-    for (const n of plugin.optionalDependencies) {
-      puml.push(`"${name}" -> "${n}";`);
-    }
-  } else {
-    single.push(name);
-    puml.push(`"${name}";`);
   }
-}
 
-const content = `
-@startuml
-digraph world {
-  ${puml.join('\n  ')}
-}
-@enduml
-`;
+  let content = '';
+  content += '@startuml\n';
+  content += 'digraph plugins {\n';
+  content += def.map(d => '  ' + d).join('\n') + '\n';
+  content += deps.map(d => '  ' + d).join('\n') + '\n';
+  content += '}\n';
+  content += '@enduml\n';
 
-const pumlPath = path.join(destDir, 'plugins.puml');
-mkdirp.sync(destDir);
-fs.writeFileSync(pumlPath, content);
-console.info(`Writed to ${pumlPath}`);
+  const pumlPath = path.join(dest, 'plugins.puml');
+  mkdirp.sync(dest);
+  fs.writeFileSync(pumlPath, content);
+  console.info(`Writed to ${pumlPath}`);
+};
