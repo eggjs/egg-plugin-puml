@@ -12,7 +12,6 @@ const defaults = {
   dest: '',
 };
 
-// puml -c a
 module.exports = options => {
   options = Object.assign({}, defaults, options);
   assert(options.framework);
