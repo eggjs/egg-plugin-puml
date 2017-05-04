@@ -35,13 +35,14 @@ module.exports = options => {
 
     if (options.enable && !plugin.enable) continue;
 
-    def.push(`${name}${plugin.enable ? '' : ' [color=gray]'}`);
+    const color = plugin.enable ? '' : ' [color=gray]';
+    def.push(`${normalize(name)}${color}`);
     if (plugin.dependencies.length || plugin.optionalDependencies.length) {
       for (const n of plugin.dependencies) {
-        deps.push(`${name} -> ${n}`);
+        deps.push(`${normalize(name)} -> ${normalize(n)}`);
       }
       for (const n of plugin.optionalDependencies) {
-        deps.push(`${name} -> ${n} [style=dotted]`);
+        deps.push(`${normalize(name)} -> ${normalize(n)} [style=dotted]`);
       }
     }
   }
@@ -59,3 +60,7 @@ module.exports = options => {
   fs.writeFileSync(pumlPath, content);
   console.info(`Writed to ${pumlPath}`);
 };
+
+function normalize(str) {
+  return str.includes('-') ? `"${str}"` : str;
+}

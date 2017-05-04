@@ -1,0 +1,8 @@
+{
+  "eggPlugin": {
+    "name": "hyphen-name",
+    "dependencies": [
+      "hyphen-dep"
+    ]
+  }
+}
