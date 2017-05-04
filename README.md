@@ -36,6 +36,12 @@ Create the `.puml` file
 $ puml . --dest doc
 ```
 
+## Options
+
+- `--dest`: Directory that the file writing to
+- `--framework`: Directory where framework is
+- `-e, --enable`: Only include plugins which is enabled
+
 ## License
 
 [MIT](LICENSE)

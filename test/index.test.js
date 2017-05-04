@@ -65,4 +65,21 @@ describe('test/index.test.js', () => {
     });
   });
 
+  it('should generator enabled plugins.puml', done => {
+    const expectPuml = path.join(__dirname, 'fixtures/expect-enable.puml');
+    const baseDir = path.join(__dirname, '../node_modules/egg');
+    const destFile = path.join(baseDir, 'plugins.puml');
+    rimraf.sync(destFile);
+    coffee.fork(puml, [ '-e', baseDir ])
+    .debug()
+    .expect('stdout', new RegExp('Writed to ' + destFile))
+    .end(err => {
+      assert.ifError(err);
+      assert.ok(fs.existsSync(destFile));
+      assert.equal(
+        fs.readFileSync(destFile, 'utf8'), fs.readFileSync(expectPuml, 'utf8'));
+      done();
+    });
+  });
+
 });
