@@ -1,0 +1,23 @@
+@startuml
+digraph plugins {
+  onerror
+  session
+  i18n
+  watcher
+  multipart
+  security
+  development [color=gray]
+  logrotator
+  schedule
+  static
+  jsonp
+  view
+  "hyphen-name"
+  "hyphen-dep"
+  security -> session
+  development -> watcher
+  logrotator -> schedule
+  jsonp -> security [style=dotted]
+  "hyphen-name" -> "hyphen-dep"
+}
+@enduml

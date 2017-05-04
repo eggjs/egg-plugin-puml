@@ -82,4 +82,23 @@ describe('test/index.test.js', () => {
     });
   });
 
+  it('should quote name when contains hyphen', done => {
+    const expectPuml = path.join(__dirname, 'fixtures/hyphen-name/expect.puml');
+    const baseDir = path.join(__dirname, 'fixtures/hyphen-name');
+    const framework = path.join(__dirname, '../node_modules/egg');
+    const dest = path.join(__dirname, 'tmp');
+    const destFile = path.join(dest, 'plugins.puml');
+    rimraf.sync(destFile);
+    coffee.fork(puml, [ baseDir, '--dest', dest, '--framework', framework ])
+    .debug()
+    .expect('stdout', new RegExp('Writed to ' + destFile))
+    .end(err => {
+      assert.ifError(err);
+      assert.ok(fs.existsSync(destFile));
+      assert.equal(
+        fs.readFileSync(destFile, 'utf8'), fs.readFileSync(expectPuml, 'utf8'));
+      done();
+    });
+  });
+
 });
