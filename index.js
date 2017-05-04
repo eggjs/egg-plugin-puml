@@ -35,7 +35,7 @@ module.exports = options => {
 
     if (options.enable && !plugin.enable) continue;
 
-    const color = plugin.enable ? '' : ' [color=gray]';
+    const color = plugin.enable ? '' : ' [color="0.5 0.01 0.9" style=filled]';
     def.push(`${normalize(name)}${color}`);
     if (plugin.dependencies.length || plugin.optionalDependencies.length) {
       for (const n of plugin.dependencies) {

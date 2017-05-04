@@ -6,7 +6,7 @@ digraph plugins {
   watcher
   multipart
   security
-  development [color=gray]
+  development [color="0.5 0.01 0.9" style=filled]
   logrotator
   schedule
   static

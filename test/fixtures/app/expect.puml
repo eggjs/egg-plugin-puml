@@ -1,12 +1,12 @@
 @startuml
 digraph plugins {
-  onerror [color=gray]
+  onerror [color="0.5 0.01 0.9" style=filled]
   session
   i18n
   watcher
   multipart
   security
-  development [color=gray]
+  development [color="0.5 0.01 0.9" style=filled]
   logrotator
   schedule
   static
