@@ -10,6 +10,7 @@ const defaults = {
   baseDir: process.cwd(),
   framework: '',
   dest: '',
+  enable: false,
 };
 
 module.exports = options => {
@@ -31,6 +32,9 @@ module.exports = options => {
   const deps = [];
   for (const name in plugins) {
     const plugin = plugins[name];
+
+    if (options.enable && !plugin.enable) continue;
+
     def.push(`${name}${plugin.enable ? '' : ' [color=gray]'}`);
     if (plugin.dependencies.length || plugin.optionalDependencies.length) {
       for (const n of plugin.dependencies) {

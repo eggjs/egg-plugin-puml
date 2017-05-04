@@ -19,6 +19,12 @@ class PumlCommand extends Command {
         type: 'string',
         description: 'Directory where framework is',
       },
+      enable: {
+        type: 'boolean',
+        alias: 'e',
+        default: false,
+        description: 'Only include plugins which is enabled',
+      },
     };
   }
 
@@ -28,6 +34,7 @@ class PumlCommand extends Command {
       baseDir,
       framework: argv.framework || baseDir,
       dest: argv.dest,
+      enable: argv.enable,
     });
   }
 }
