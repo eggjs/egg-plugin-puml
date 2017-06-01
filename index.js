@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const assert = require('assert');
-const getPlugin = require('./lib/plugin');
+const getPlugins = require('egg-utils').getPlugins;
 
 const defaults = {
   baseDir: process.cwd(),
@@ -23,7 +23,7 @@ module.exports = options => {
   let dest = options.dest || baseDir;
   dest = path.resolve(dest);
 
-  const plugins = getPlugin({
+  const plugins = getPlugins({
     baseDir,
     framework,
   });
