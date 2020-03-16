@@ -5,7 +5,7 @@
   "dependencies": {
     "common-bin": "^2.3.1",
     "egg-utils": "^2.2.0",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^1.0.0"
   },
   "devDependencies": {
     "autod": "^2.8.0",
